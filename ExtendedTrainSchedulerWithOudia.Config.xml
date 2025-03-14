@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ExtendedTrainSchedulerWithOudiaConfig xmlns="Toukaitetudou.ExtendedTrainScheduler.Config">
+	<Config RealTimeUpdate="true" VehicleDirection="OutBound" VehicleOperationNumber="2" Oud2FilePath="ExtendedTrainSchedulerWithOudia.Sample.oud2" TimeTableName="運転試験" UpdateOutputFile="true"/>
+	<Operation OperationNumber="0" InBoundTrainFilePath="TestTrain.txt" Series="383" Cars="1" />
+	<Operation OperationNumber="1" InBoundTrainFilePath="TestTrain.txt" Series="383" Cars="5" />
+	<Operation OperationNumber="3" InBoundTrainFilePath="TestTrain.txt" Series="373" Cars="1" />
+	<Operation OperationNumber="4" InBoundTrainFilePath="TestTrain.txt" Series="test" Cars="1" />
+	<Operation OperationNumber="5" InBoundTrainFilePath="TestTrain.txt" Series="test" Cars="1" />
+	<Operation OperationNumber="6" InBoundTrainFilePath="TestTrain.txt" Series="test" Cars="1" />
+</ExtendedTrainSchedulerWithOudiaConfig>

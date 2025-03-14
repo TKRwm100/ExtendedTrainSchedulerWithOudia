@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CF4EBEDF-54E5-4310-A1E1-3EF16E32986B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ExtendedTrainSchedulerWithOudia</RootNamespace>
+    <AssemblyName>ExtendedTrainSchedulerWithOudia</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExtendedTrainSchedulerWithOudia.Config.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Resources\ExtendedTrainSchedulerWithOudia.ja.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\ExtendedTrainSchedulerWithOudia.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <LastGenOutput>ExtendedTrainSchedulerWithOudia.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExtendedTrainSchedulerWithOudia.Config.cs">
+      <DependentUpon>ExtendedTrainSchedulerWithOudia.Config.xsd</DependentUpon>
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Include="ExtendFunctions.cs" />
+    <Compile Include="MapStatementCreateer.cs" />
+    <Compile Include="Oud2.cs" />
+    <Compile Include="PluginMain.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ExtendedTrainSchedulerWithOudia.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExtendedTrainSchedulerWithOudia.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony, Version=2.3.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.2.3.5\lib\net48\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="BveEx.CoreExtensions, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Series189\packages\BveEx.CoreExtensions.2.0.0\lib\BveEx.CoreExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="BveEx.PluginHost, Version=2.0.50204.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\BveEx.PluginHost.dll</HintPath>
+    </Reference>
+    <Reference Include="BveTypes, Version=2.0.50204.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\BveTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="FastCaching, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\FastCaching.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="TypeWrapping, Version=2.0.50204.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\TypeWrapping.dll</HintPath>
+    </Reference>
+    <Reference Include="UnembeddedResources">
+      <HintPath>..\..\..\..\..\Public\Documents\BveEx\2.0\UnembeddedResources.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExtendedTrainSchedulerWithOudia.Config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

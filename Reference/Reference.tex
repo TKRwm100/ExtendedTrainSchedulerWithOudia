@@ -1,0 +1,290 @@
+\documentclass[paper={550pt,2910pt},lualatex , ja=standard]{bxjsreport}
+\usepackage{luatexja-otf}
+\usepackage[deluxe]{luatexja-preset}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{bxpapersize}
+\usepackage{layout}
+\usepackage{geometry}
+\usepackage{siunitx}
+
+\setlength{\hoffset}{-1in+50pt}
+\setlength{\voffset}{-1in+50pt}
+\setlength{\textwidth}{450pt}
+\setlength{\topmargin}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\textheight}{2810pt}
+\tcbuselibrary{listings}
+\hypersetup{%
+luatex,
+pdfencoding=auto,
+colorlinks=true,%
+allcolors=blue
+}
+
+\definecolor{White}{rgb}{1,1,1}
+\definecolor{Orange}{rgb}{0.9,0.1,0}
+\lstset{
+  basicstyle={\ttfamily\scriptsize}, % 使用フォント
+  classoffset=1,
+  breaklines=true,
+  identifierstyle={},
+  commentstyle={},
+  keywordstyle={\bfseries},
+  ndkeywordstyle={},
+  stringstyle={\ttfamily},
+  columns=fixed,
+  basewidth=0.5em,
+  numberstyle={\tiny},
+  stepnumber=1,
+  tabsize=4,
+  keywordstyle={\color{blue}}, %キーワード(int, ifなど)の書体指定
+  commentstyle={\color{OliveGreen}}, %注釈の書体
+  stringstyle={\color{Orange}}, %文字列
+  showstringspaces=false,  %文字列中の半角スペースを表示させない
+  keepspaces=true,
+  rulesep = 1pt,
+  xrightmargin=0zw,                     % 右マージンのサイズ．
+  xleftmargin=1.6zw,                    % 左マージンのサイズ．行番号が2桁でも行左端からはみ出ない値．
+}
+
+\makeatletter
+\def\lst@lettertrue{\let\lst@ifletter\iffalse}
+\makeatother
+
+\pagestyle{empty}
+\begin{document}
+
+\def\xmlcol{-20pt}
+\def\xmlrowVal{0pt}
+\def\xmlrowValTL{10pt}
+\def\xmlrowDef{150pt}
+\def\xmlrowExp{200pt}
+
+\definecolor{backcolor}{rgb}{0.9,0.9,0.9}
+\definecolor{framecolor}{rgb}{0.8,0.8,0.8}
+\definecolor{xsdbackcolor}{rgb}{0.9,0.9,1}
+\definecolor{xsdframecolor}{rgb}{0.7,0.7,0.9}
+\definecolor{White}{rgb}{1,1,1}
+
+\newcommand{\mktree}[3]{
+    \node[anchor=west,font=\fontsize{\xmlrowValTL}{\xmlrowValTL}\selectfont] at(\xmlrowVal+\xmlrowValTL*#2,\xmlcol*#3){#1};
+    \ifnum #2=0
+    \else
+    \draw (\xmlrowVal+\xmlrowValTL*#2-\xmlrowValTL/4,\xmlcol*#3)--(\xmlrowVal+\xmlrowValTL*#2+\xmlrowValTL/4,\xmlcol*#3);
+    \fi
+    }
+\newcommand{\drawtreeline}[3]{
+    \draw (\xmlrowVal+\xmlrowValTL*#1-\xmlrowValTL/4,\xmlcol*#2+\xmlcol/2)--(\xmlrowVal+\xmlrowValTL*#1-\xmlrowValTL/4,\xmlcol*#3);
+    }
+\def\postbreak{}
+%\def\postbreak{\mbox{\textcolor{red}{$\hookrightarrow$}\space}}
+\newtcblisting{reflisting}[2][]{
+      arc=5pt,
+      top=10pt,
+      bottom=10pt,
+      left=0pt,
+      right=0pt,
+      boxrule=1pt,
+      colback=backcolor,
+      colframe=framecolor,
+      listing only,
+      hbox,
+      #1,
+      listing options={
+        breaklines=true,
+        postbreak=\postbreak,
+        #2
+      }
+}
+\newtcblisting{refxsdlisting}[1][]{
+      arc=5pt,
+      top=10pt,
+      bottom=10pt,
+      left=15pt,
+      right=0pt,
+      boxrule=1pt,
+      colback=xsdbackcolor,
+      colframe=xsdframecolor,
+      listing only,
+      hbox,
+      #1,
+      coltitle=black,
+      listing options={
+        language=XML,
+        breaklines=true,
+        postbreak=\postbreak,
+        escapechar=!,
+      }
+}
+
+%\layout
+\chapter*{ExtendedTrainSchedulerWithOudia}
+
+\section*{構文解説}
+
+\subsection*{directionについて}
+
+上り線の列車は\texttt{InBound}の文字列 , 下り線の列車は\texttt{OutBound}の文字列 とします.
+
+\subsection*{主関数}
+各ステートメントにつき1つのみ記述できます. 各ステートメントの最後にのみセミコロン ; を記述してください.
+\subsubsection*{\texttt{Stop(station, car)}}
+\begin{reflisting}[]{language=C++,escapechar=\@,}
+BveEx.User.Toukaitetudou.ExtendedTrainSchedulerWithOudia.Track[string direction].Stop(sring station,int car);
+\end{reflisting}
+進行方向 direction の向きで両数 car 以下の列車の駅 station における停車位置をその距離程に設定します.
+
+同一駅・同一列車に対し有効な設定が複数存在する場合, car の値が最も小さいもの 距離程の値が最も小さいものの順で優先されます.
+
+オプション関数Series, IgnoreSeriesを利用できます.
+
+\subsubsection*{\texttt{ToHere(v, a)}}
+\begin{reflisting}[]{language=C,escapechar=\@,}
+BveEx.User.Toukaitetudou.ExtendedTrainSchedulerWithOudia.Track[string direction].Accelerate.ToHere(double v,double a);
+\end{reflisting}
+進行方向 direction の向きの列車の加減速を 加速度 a $[\si{\kilo\meter/\hour/\second}]$, 目標速度 v $[\si{\kilo\meter/\hour}]$ で, その距離程 "まで" で完了するように行います.
+
+オプション関数Series, IgnoreSeries, Stop, IgnoreStop, Pass, IgnorePassを利用できます.
+\subsubsection*{\texttt{FromHere(v, a)}}
+\begin{reflisting}[]{language=C,escapechar=\@,}
+BveEx.User.Toukaitetudou.ExtendedTrainSchedulerWithOudia.Track[string direction].Accelerate.FromHere(double v,double a);
+\end{reflisting}
+    進行方向 direction の向きの列車の加減速を 加速度 a $[\si{\kilo\meter/\hour/\second}]$, 目標速度 v $[\si{\kilo\meter/\hour}]$ で, その距離程 "から" 開始します.
+    
+    オプション関数Series, IgnoreSeries, Stop, IgnoreStop, Pass, IgnorePassを利用できます.
+\subsection*{オプション関数}
+主関数に続けて記述することで対象列車の絞り込みをします. 
+1つの主関数に対し複数のオプション関数を指定できます. 
+主関数によって利用できるオプション関数は異なります.
+本項において~は絞り込みするステートメントを表すものとします.
+\subsubsection*{Series(series)}
+\begin{reflisting}[]{language=C,escapechar=\@,}
+~.Series(string series,...);
+\end{reflisting}
+対象列車を車種が series... であるものに絞り込みます.
+seriesは複数回記述できます.
+\subsubsection*{IgnoreSeries(ignoreseries)}
+\begin{reflisting}[]{language=C,escapechar=\@,}
+~.IgnoreSeries(string ignoreseries,...);
+\end{reflisting}
+対象列車を車種が ignoreseries... でないものに絞り込みます.
+ignoreseriesは複数回記述できます.
+\subsubsection*{Stop(stops)}
+\begin{reflisting}[]{language=C,escapechar=\@,}
+~.Stop(string stops,...);
+\end{reflisting}
+対象列車を stops... に停車するものに絞り込みます.
+stopsは複数回記述できます.
+\subsubsection*{IgnoreStop(ignorestops)}
+\begin{reflisting}[]{language=C,escapechar=\@,}
+~.IgnoreStop(string ignorestops,...);
+\end{reflisting}
+対象列車を ignorestops... に停車しないものに絞り込みます.
+ignorestopsは複数回記述できます.
+\subsubsection*{Pass(passes)}
+\begin{reflisting}[]{language=C,escapechar=\@,}
+~.Pass(string passes,...);
+\end{reflisting}
+対象列車を passes... を通過するものに絞り込みます.
+passesは複数回記述できます.
+\subsubsection*{IgnorePass(ignorepasses)}
+\begin{reflisting}[]{language=C,escapechar=\@,}
+~.IgnorePass(string ignorepasses,...);
+\end{reflisting}
+対象列車を ignorepasses... を通過しないものに絞り込みます.
+ignorepassesは複数回記述できます.
+
+\section*{設定ファイル解説}
+
+ExtendedTrainSchedulerWithOudia.dllと同階層のExtendedTrainSchedulerWithOudia.Config.xmlに記述します
+
+\begin{tikzpicture}
+    \mktree{要素・属性}{0}{0}
+    \mktree{ExtendedTrainSchedulerWithOudiaConfig}{0}{1}
+    \mktree{Config}{1}{2}
+    \mktree{RealTimeUpdate}{2}{3}
+    \mktree{UpdateOutputFile}{2}{4}
+    \mktree{VehicleDirection}{2}{5}
+    \mktree{VehicleOperationNumber}{2}{6}
+    \mktree{Oud2FilePath}{2}{7}
+    \mktree{TimeTableName}{2}{8}
+    \drawtreeline{2}{2}{8}
+    \mktree{Operation}{1}{9}
+    \mktree{OperationNumber}{2}{10}
+    \mktree{InBoundTrainFilePath}{2}{11}
+    \mktree{OutBoundTrainFilepath}{2}{12}
+    \mktree{Series}{2}{13}
+    \mktree{Cars}{2}{14}
+    \drawtreeline{2}{9}{14}
+    \drawtreeline{1}{1}{9}
+\end{tikzpicture}
+\subsection*{ExtendedTrainSchedulerWithOudiaConfig}
+\begin{refxsdlisting}[title=XSD定義,]
+<xs:element name="ExtendedTrainSchedulerWithOudiaConfig">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Config" type="Config"/>
+            <xs:element name="Operation" type="Operation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:unique name="OperationNumber" id="OperationNumber">
+        <xs:selector xpath="Content"/>
+        <xs:field xpath="Config/@VehicleOperationNumber" />
+        <xs:field xpath="Operation/@OperationNumber" />
+    </xs:unique>
+</xs:element>
+\end{refxsdlisting}
+(要素) ルート要素です. 1個のConfig要素と0個以上のOperation要素を持ちます.
+\subsection*{Config}
+\begin{refxsdlisting}[title=XSD定義,]
+<xs:complexType name="Config">
+    <xs:attribute name="RealTimeUpdate" type="xs:boolean" default="true"/>
+    <xs:attribute name="UpdateOutputFile" type="xs:boolean" default="true"/>
+    <xs:attribute name="VehicleDirection" type="Bound" use="required"/>
+    <xs:attribute name="VehicleOperationNumber" type="xs:NMTOKEN" use="required"/>
+    <xs:attribute name="Oud2FilePath" type="xs:anyURI" use="required"/>
+    <xs:attribute name="TimeTableName" type="xs:NMTOKEN" use="required"/>
+</xs:complexType>
+\end{refxsdlisting}
+(要素) 自列車やダイヤ全体に係ることの設定をします. 0個の子要素を持ちます.
+\subsubsection*{RealTimeUpdate}
+(属性) trueの場合プラグインが生成した構文を読み込みます. 省略可能です. 省略した場合, 値はtrueであるものとして扱われます.
+\subsubsection*{UpdateOutputFile}
+(属性) trueの場合生成した構文をファイルに書き出します. 省略可能です. 省略した場合, 値はtrueであるものとして扱われます.
+\subsubsection{VehicleDirection}
+(属性) 自列車の direction を記述します. 省略できません.
+\subsubsection*{VehicleOperationNumber}
+(属性) 自列車の運用番号を記述します. 省略できません.
+\subsubsection*{Oud2FilePath}
+(属性) ダイヤを読み込むOudiaのファイルへのパスを記述します. 省略できません.
+\subsubsection*{TimeTableName}
+(属性) 読み込むダイヤの名前を記述します. 省略できません.
+\subsection*{Operation}
+\begin{refxsdlisting}[title=XSD定義,]
+<xs:complexType name="Operation">
+    <xs:attribute name="OperationNumber" type="xs:NMTOKEN" use="required"/>
+    <xs:attribute name="InBoundTrainFilePath" type="xs:anyURI" use="required"/>
+    <xs:attribute name="OutBoundTrainFilepath" type="xs:anyURI" use="optional"/>
+    <xs:attribute name="Series" type="xs:NMTOKEN" use="optional"/>
+    <xs:attribute name="Cars" type="xs:positiveInteger" use="required"/>
+</xs:complexType>
+\end{refxsdlisting}
+(要素) 運用番号と車両情報の紐づけをします. 0個の子要素を持ちます.
+\subsubsection*{OperationNumber}
+(属性) 紐づける運用番号を指定します. 値はConfig要素のVehicleOperationNumber属性の値, 他のOperation要素のOperationNumberの値と重複できず, 省略できません.
+\subsubsection*{InBoundTrainFilePath}
+(属性) 上り列車として運転するときの他列車ファイルを指定します. 省略できません.
+\subsubsection*{OutBoundTrainFilepath}
+(属性) 下り列車として運転するときの他列車ファイルを指定します. 省略可能です. 省略した場合, 値はInBoundTrainFilePath属性の値であるものとして扱います.
+\subsubsection*{Series}
+(属性) 車種を指定します. 省略可能です.
+\subsubsection*{Cars}
+(属性) 両数を指定します. 省略できません.
+
+\end{document}

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Config"
+    targetNamespace="Toukaitetudou.ExtendedTrainScheduler.Config"
+    elementFormDefault="qualified"
+    xmlns="Toukaitetudou.ExtendedTrainScheduler.Config"
+    xmlns:mstns="Config.xsdToukaitetudou.ExtendedTrainScheduler.Config"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<xs:element name="ExtendedTrainSchedulerWithOudiaConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Config" type="Config"/>
+				<xs:element name="Operation" type="Operation" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+		<xs:unique name="OperationNumber" id="OperationNumber">
+			<xs:selector xpath="Content"/>
+			<xs:field xpath="Config/@VehicleOperationNumber" />
+			<xs:field xpath="Operation/@OperationNumber" />
+		</xs:unique>
+	</xs:element>
+	<xs:complexType name="Config">
+		<xs:attribute name="RealTimeUpdate" type="xs:boolean" default="true"/>
+		<xs:attribute name="UpdateOutputFile" type="xs:boolean" default="true"/>
+		<xs:attribute name="VehicleDirection" type="Bound" use="required"/>
+		<xs:attribute name="VehicleOperationNumber" type="xs:NMTOKEN" use="required"/>
+		<xs:attribute name="Oud2FilePath" type="xs:anyURI" use="required"/>
+		<xs:attribute name="TimeTableName" type="xs:NMTOKEN" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="Bound">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="InBound" />
+			<xs:enumeration value="OutBound" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Operation">
+		<xs:attribute name="OperationNumber" type="xs:NMTOKEN" use="required"/>
+		<xs:attribute name="InBoundTrainFilePath" type="xs:anyURI" use="required"/>
+		<xs:attribute name="OutBoundTrainFilepath" type="xs:anyURI" use="optional"/>
+		<xs:attribute name="Series" type="xs:NMTOKEN" use="optional"/>
+		<xs:attribute name="Cars" type="xs:positiveInteger" use="required"/>
+	</xs:complexType>
+</xs:schema>
