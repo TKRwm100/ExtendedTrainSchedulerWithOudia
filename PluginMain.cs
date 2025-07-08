@@ -103,6 +103,7 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
             "OuDiaSecond.1.13",
             "OuDiaSecond.1.14",
             "OuDiaSecond.1.15",
+            "OuDiaSecond.1.16",
         };
 
         private static void SchemaValidation(object sender, ValidationEventArgs e) => throw  new FormatException(Resources.Value.XmlSchemaValidation.Value, e.Exception);
@@ -177,7 +178,7 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
             MapStatementCreateer mapStatementCreator = new MapStatementCreateer();
             operations= ExtendedTrainScedulerWithOudiaConfig.Operation.ToDictionary(x => x.OperationNumber, x => x);
             List<TrainData> trains = Dias[ExtendedTrainScedulerWithOudiaConfig.Config.TimeTableName].Kudari.Ressya.AsEnumerable().Select(x => new TrainData() { ressya= x, bound=Bound.OutBound, operationNumber=x.OperationB.OperationNumber[0], cars=int.Parse(operations.GetValueSafe(x.OperationB.OperationNumber[0])?.Cars ??"0") }).ToList();
-            trains.AddRange(Dias[ExtendedTrainScedulerWithOudiaConfig.Config.TimeTableName].Nobori.Ressya.AsEnumerable().Select(x => new TrainData() { ressya= x, bound=Bound.InBound, operationNumber=x.OperationB.OperationNumber[0], cars=int.Parse(operations.GetValueSafe(x.OperationB.OperationNumber[0])?.Cars ??"0") }));
+            trains.AddRange(Dias[ExtendedTrainScedulerWithOudiaConfig.Config.TimeTableName].Nobori?.Ressya?.AsEnumerable()?.Select(x => new TrainData() { ressya= x, bound=Bound.InBound, operationNumber=x.OperationB.OperationNumber[0], cars=int.Parse(operations.GetValueSafe(x.OperationB.OperationNumber[0])?.Cars ??"0") })??new List<TrainData>());
             foreach (TrainData trainData in trains)
             {
                 if (trainData.operationNumber==ExtendedTrainScedulerWithOudiaConfig.Config.VehicleOperationNumber) continue;

@@ -18,7 +18,7 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
         }
         public Loader(string filepath) : this()
         {
-            if(!File.Exists(filepath))return;
+            if (!File.Exists(filepath)) return;
 
             List<string> file = File.ReadAllLines(filepath, Encoding.GetEncoding("UTF-8")).ToList();
 
@@ -324,8 +324,8 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
                                     UnparallelledTime=new Time(int.Parse(buf[0]));
                                     buf = buf[1].Split('/');
                                     UnparallelledCode=buf[0];
-                                    if(buf.Length>1)
-                                    OperationNumbers = buf[1].Split(';');
+                                    if (buf.Length>1)
+                                        OperationNumbers = buf[1].Split(';');
                                 }
                             }
                             public class OperationBeforeConection : OperationBeforeClass
@@ -337,26 +337,26 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
                                 {
                                     string[] buf = element.Split('$');
                                     int deptimeint;
-                                    if(int.TryParse(buf[0], out deptimeint))
-                                    DepTime=new Time(deptimeint);
-                                    if(buf.Length>1)
-                                    OperationNumbers = buf[1].Split(';');
+                                    if (int.TryParse(buf[0], out deptimeint))
+                                        DepTime=new Time(deptimeint);
+                                    if (buf.Length>1)
+                                        OperationNumbers = buf[1].Split(';');
                                 }
                             }
                             protected OperationBeforeClass(OperationBeforeClass src) { }
                             private OperationBeforeClass() { }
-                            static public OperationBeforeClass CreateOperationBeforeClass(Loader loader,int ekicount)
+                            static public OperationBeforeClass CreateOperationBeforeClass(Loader loader, int ekicount)
                             {
                                 List<string> ops;
-                                OperationBeforeClass rt= new OperationBeforeClass();
+                                OperationBeforeClass rt = new OperationBeforeClass();
                                 for (int i = 0; i<ekicount; ++i)
                                 {
-                                    if (loader.element.TryGetValue($"Operation{i}B",out ops))
+                                    if (loader.element.TryGetValue($"Operation{i}B", out ops))
                                     {
-                                        string[] buf= ops[0].Split('/');
+                                        string[] buf = ops[0].Split('/');
                                         int opcode;
-                                        string element=buf.Length>1? buf[1] :string.Empty;
-                                        for(int j=2;j<buf.Length; ++j)
+                                        string element = buf.Length>1 ? buf[1] : string.Empty;
+                                        for (int j = 2; j<buf.Length; ++j)
                                         {
                                             element+="/"+buf[j];
                                         }
@@ -370,7 +370,7 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
                                                     }
                                                 case 5:
                                                     {
-                                                        return new OperationBeforeConection(rt,element);
+                                                        return new OperationBeforeConection(rt, element);
                                                     }
                                             }
                                         }
@@ -406,25 +406,25 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
                                 {
                                     string[] buf = element.Split('$');
                                     int deptimeint;
-                                    if(int.TryParse(buf[0],out deptimeint))
-                                    DepTime=new Time(deptimeint);
+                                    if (int.TryParse(buf[0], out deptimeint))
+                                        DepTime=new Time(deptimeint);
                                     if (buf.Length>2)
-                                        int.TryParse(buf[1], out conectType); 
+                                        int.TryParse(buf[1], out conectType);
                                     return;
                                 }
                             }
                             protected OperationAfterClass(OperationAfterClass src) { }
                             private OperationAfterClass() { }
-                            static public OperationAfterClass CreateOperationAfterClass(Loader loader,int ekicount)
+                            static public OperationAfterClass CreateOperationAfterClass(Loader loader, int ekicount)
                             {
                                 List<string> ops;
-                                OperationAfterClass rt= new OperationAfterClass();
+                                OperationAfterClass rt = new OperationAfterClass();
                                 for (int i = 0; i<ekicount; ++i)
                                 {
-                                    if (loader.element.TryGetValue($"Operation{i}A",out ops))
+                                    if (loader.element.TryGetValue($"Operation{i}A", out ops))
                                     {
-                                        string[] buf= ops[0].Split('/');
-                                        int opcode; 
+                                        string[] buf = ops[0].Split('/');
+                                        int opcode;
                                         string element = buf.Length>1 ? buf[1] : string.Empty;
                                         for (int j = 2; j<buf.Length; ++j)
                                         {
@@ -470,7 +470,8 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
                         {
                             Houkou=loader.element[nameof(Houkou)][0];
                             Syubetsu=int.Parse(loader.element[nameof(Syubetsu)][0]);
-                            Ressyabangou=loader.element[nameof(Ressyabangou)][0];
+                            if (loader.element.ContainsKey(nameof(Ressyabangou)))
+                                Ressyabangou=loader.element[nameof(Ressyabangou)][0];
                             if (loader.element.ContainsKey(nameof(Ressyamei)))
                                 Ressyamei=loader.element[nameof(Ressyamei)][0];
                             if (loader.element.ContainsKey(nameof(Gousuu)))
@@ -481,13 +482,13 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
                                 EkiJikoku.Add(new EkijikokuClass(buf));
                             }
                             OperationB=OperationBeforeClass.CreateOperationBeforeClass(loader, EkiJikoku.Count);
-                            OperationA=OperationAfterClass.CreateOperationAfterClass(loader,  EkiJikoku.Count);
+                            OperationA=OperationAfterClass.CreateOperationAfterClass(loader, EkiJikoku.Count);
                             if (loader.element.ContainsKey(nameof(Bikou)))
                                 Bikou=loader.element[nameof(Bikou)][0];
 
-                            for(int i = 0;i< EkiJikoku.Count;++i)
+                            for (int i = 0; i< EkiJikoku.Count; ++i)
                             {
-                                if(EkiJikoku[i].Ekiatsukai!=0)
+                                if (EkiJikoku[i].Ekiatsukai!=0)
                                 {
                                     from=i;
                                     break;
@@ -504,10 +505,10 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
 
                     public NoboriKudari(Loader loader)
                     {
-                        Ressya=new List<RessyaClass>();
-                        foreach (Loader loader1 in loader.childs[nameof(Ressya)])
+                        if (loader.childs.TryGetValue(nameof(Ressya), out List<Loader> loaders))
                         {
-                            Ressya.Add(new RessyaClass(loader1));
+                            Ressya=loaders.Select(x => new RessyaClass(x)).ToList();
+
                         }
                         return;
                     }
@@ -563,12 +564,12 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
                 }
                 KitenJikoku=int.Parse(loader.element[nameof(KitenJikoku)][0]);
                 DiagramDgrYZahyouKyoriDefault=int.Parse(loader.element[nameof(DiagramDgrYZahyouKyoriDefault)][0]);
-                if(loader.element.ContainsKey(nameof(OperationCrossKitenJikoku)))
-                OperationCrossKitenJikoku=int.Parse(loader.element[nameof(OperationCrossKitenJikoku)][0]);
-                if(loader.element.ContainsKey(nameof(KijunDiaIndex)))
-                KijunDiaIndex=int.Parse(loader.element[nameof(KijunDiaIndex)][0]);
-                if(loader.element.ContainsKey(nameof(Comment)))
-                Comment=loader.element[nameof(Comment)][0];
+                if (loader.element.ContainsKey(nameof(OperationCrossKitenJikoku)))
+                    OperationCrossKitenJikoku=int.Parse(loader.element[nameof(OperationCrossKitenJikoku)][0]);
+                if (loader.element.ContainsKey(nameof(KijunDiaIndex)))
+                    KijunDiaIndex=int.Parse(loader.element[nameof(KijunDiaIndex)][0]);
+                if (loader.element.ContainsKey(nameof(Comment)))
+                    Comment=loader.element[nameof(Comment)][0];
             }
         }
         public class DispPropClass
@@ -682,11 +683,11 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
             {
                 RosenViewWidth=int.Parse(loader.element[nameof(RosenViewWidth)][0]);
                 ChildWindow = new List<ChildWindowClass>();
-                if(loader.childs.ContainsKey(nameof(ChildWindow)))
-                foreach (Loader loader1 in loader.childs[nameof(ChildWindow)])
-                {
-                    ChildWindow.Add(new ChildWindowClass(loader1));
-                }
+                if (loader.childs.ContainsKey(nameof(ChildWindow)))
+                    foreach (Loader loader1 in loader.childs[nameof(ChildWindow)])
+                    {
+                        ChildWindow.Add(new ChildWindowClass(loader1));
+                    }
             }
         }
         public string FileType;
@@ -700,13 +701,13 @@ namespace BveEx.Toukaitetudou.ExtendedTrainSchedulerWithOudia
             if (!loader.element.ContainsKey(nameof(FileType)))
             {
                 FileType=null;
-                return; 
+                return;
             }
             FileType=loader.element[nameof(FileType)][0];
             Rosen=new RosenClass(loader.childs[nameof(Rosen)][0]);
             DispProp=new DispPropClass(loader.childs[nameof(DispProp)][0]);
-            if(loader.childs.ContainsKey(nameof(WindowPlacement)))
-            WindowPlacement=new WindowPlacementClass(loader.childs[nameof(WindowPlacement)][0]);
+            if (loader.childs.ContainsKey(nameof(WindowPlacement)))
+                WindowPlacement=new WindowPlacementClass(loader.childs[nameof(WindowPlacement)][0]);
             FileTypeAppComment=loader.element[nameof(FileTypeAppComment)][0];
         }
     }

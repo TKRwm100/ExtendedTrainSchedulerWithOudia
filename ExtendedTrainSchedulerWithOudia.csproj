@@ -68,39 +68,37 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.3.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Lib.Harmony.2.3.5\lib\net48\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.2.3.6\lib\net48\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="BveEx.CoreExtensions, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Series189\packages\BveEx.CoreExtensions.2.0.0\lib\BveEx.CoreExtensions.dll</HintPath>
+      <HintPath>packages\BveEx.CoreExtensions.2.0.0\lib\BveEx.CoreExtensions.dll</HintPath>
     </Reference>
     <Reference Include="BveEx.PluginHost, Version=2.0.50204.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\BveEx.PluginHost.dll</HintPath>
+      <HintPath>packages\BveEx.PluginHost.2.0.6\lib\BveEx.PluginHost.dll</HintPath>
     </Reference>
-    <Reference Include="BveTypes, Version=2.0.50204.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\BveTypes.dll</HintPath>
+    <Reference Include="BveTypes, Version=2.0.50314.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BveEx.PluginHost.2.0.6\lib\BveTypes.dll</HintPath>
     </Reference>
     <Reference Include="FastCaching, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\FastCaching.dll</HintPath>
+      <HintPath>packages\BveEx.PluginHost.2.0.6\lib\FastCaching.dll</HintPath>
     </Reference>
     <Reference Include="FastMember, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\FastMember.dll</HintPath>
+      <HintPath>packages\BveEx.PluginHost.2.0.6\lib\FastMember.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.Serialization" />
-    <Reference Include="TypeWrapping, Version=2.0.50204.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Series189\packages\BveEx.PluginHost.2.0.5.1\lib\TypeWrapping.dll</HintPath>
+    <Reference Include="TypeWrapping, Version=2.0.50314.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BveEx.PluginHost.2.0.6\lib\TypeWrapping.dll</HintPath>
     </Reference>
-    <Reference Include="UnembeddedResources">
-      <HintPath>..\..\..\..\..\Public\Documents\BveEx\2.0\UnembeddedResources.dll</HintPath>
+    <Reference Include="UnembeddedResources, Version=1.0.30529.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\UnembeddedResources.1.0.0\lib\UnembeddedResources.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExtendedTrainSchedulerWithOudia.Config.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="ExtendedTrainSchedulerWithOudia.Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
